@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useStore } from 'effector-react';
+import { useState } from 'react';
+
+import './App.css';
+import { TodoList } from './store/effector.ts';
+
+const { store, event } = TodoList;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [state, setState] = useState('');
+  const [search, setSearch] = useState('');
+
+  const todoList = useStore(store.$todoList);
+  const searchTodoList = useStore(store.$searchTodoList);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="todoWrapper">
+        <div className="inputWrapper">
+          <input
+            className="input"
+            placeholder="Введите название"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+          <button className="button buttonAdd" onClick={() => event.createTodo(state)}>
+            Добавить
+          </button>
+        </div>
+        <div className="inputWrapper">
+          <input className="input" placeholder="Поиск" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <button className="button buttonAdd" onClick={() => event.searchTodo(search)}>
+            Поиск
+          </button>
+          <button className="button buttonAdd" onClick={() => event.resetSearchTodo()}>
+            Reset
+          </button>
+        </div>
+        <ul className="todoList">
+          {(searchTodoList || todoList)?.map((todo) => (
+            <li className="todoItem" key={todo.id}>
+              <input type="checkbox" onChange={(e) => event.editTodo({ ...todo, isDone: e.target.checked })} />
+              <p className="todoText">{todo.text}</p>
+              <button className="button buttonDelete" onClick={() => event.deleteTodo(todo.id)}>
+                Удалить
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
