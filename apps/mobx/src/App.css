@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: #1c1e26;
+}
+
+.todoWrapper {
+  max-width: 1280px;
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.todoList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.todoText {
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+}
+
+.button {
+  cursor: pointer;
+  padding: 4px 8px;
+  border: 1px solid #f1f1f1;
+  color: #f1f1f1;
+  border-radius: 10px;
+}
+
+.buttonAdd {
+  background: #232530;
+}
+
+.buttonDelete {
+  border: none;
+  background: tomato;
+}
+
+.todoItem {
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  background: #232530;
+  border: 1px solid #f1f1f1;
+  border-radius: 10px;
+  color: #f1f1f1;
+  width: 500px;
+}
+
+.inputWrapper {
+  display: flex;
+  width: 500px;
+  gap: 20px;
+}
+
+.input {
+  color: #f1f1f1;
+  flex: 1;
+  border-radius: 10px;
+  background: #232530;
+  border: 1px solid #f1f1f1;
+  font-size: 20px;
+  padding: 8px 8px;
+}
